@@ -1,11 +1,16 @@
+/**
+ * Custom Express Error Class
+ * Prevents stack trace leakage and standardizes error handling
+ */
 class ExpressError extends Error {
-    constructor(status ,message){
+    constructor(status, message) {
         super();
-        this.status=status;
-        this.message= message;
+        this.status = status;
+        this.message = message;
+        
+        // Capture stack trace (development only)
+        Error.captureStackTrace(this, this.constructor);
     }
 }
-    
-module.exports= ExpressError;
 
-/*  Express error inherits the properties from the default error class used in express    */
+module.exports = ExpressError;
